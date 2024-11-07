@@ -1,6 +1,7 @@
 *.mp4
 *.png
 !loss_*.png
+!lr=*.png
 *.pkl
 *.csv
 log/

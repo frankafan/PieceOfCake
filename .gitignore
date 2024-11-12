@@ -15,6 +15,7 @@ render/
 .venv/
 results.log
 result.csv
+!Group 4.csv
 testing.py
 testing.sh
 venv/

@@ -838,4 +838,6 @@ for request_name, request in requests.items():
 
     fig.tight_layout()
     plt.savefig(f"{request_name}_{np.min(np.concatenate(all_losses))}.png")
-    np.save(f"{request_name}.npy", [all_losses, best_x_cuts, best_y_cuts])
+    np.save(f"{request_name}_all_losses.npy", all_losses)
+    np.save(f"{request_name}_best_x_cuts.npy", best_x_cuts)
+    np.save(f"{request_name}_best_y_cuts.npy", best_y_cuts)

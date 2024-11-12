@@ -2,6 +2,7 @@
 *.png
 !loss_*.png
 !lr=*.png
+!g*.png
 *.pkl
 *.csv
 log/

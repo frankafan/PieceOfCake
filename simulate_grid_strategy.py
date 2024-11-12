@@ -821,20 +821,21 @@ for request_name, request in requests.items():
         factors, request, learning_rate, num_iterations, epsilon, learning_rate_decay, num_restarts
     )
 
+    fig, axs = plt.subplots(len(factors), 1, figsize=(8, len(factors) * 5))
     for i, (num_horizontal, num_vertical) in enumerate(factors):
-        plt.figure()
+        ax = axs[i] if len(factors) > 1 else axs
 
-        for losses in all_losses[i]:
-            plt.plot(losses)
+        for j, losses in enumerate(all_losses[i]):
+            ax.plot(losses, label=f"Restart {j}")
 
-        plt.xlabel("Steps")
-        plt.ylabel("Loss")
-        plt.title(
-            f"{request_name}: {num_horizontal}x{num_horizontal}, best loss: {np.min(np.concatenate(all_losses[i]))}"
-        )
-        plt.legend([f"Restart {i}" for i in range(len(all_losses[i]))])
-        plt.savefig(f"grid_{request_name}_{num_horizontal}x{num_horizontal}.png")
+        ax.set_xlabel("Steps")
+        ax.set_ylabel("Loss")
+        ax.set_title(f"{request_name}: {num_horizontal}x{num_horizontal}, best loss: {np.min(np.concatenate(all_losses[i]))}")
+        ax.legend()
 
-    print("Best loss:", np.min(np.concatenate(all_losses)))
     print("Best x cuts:", best_x_cuts)
     print("Best y cuts:", best_y_cuts)
+
+    fig.tight_layout()
+    plt.savefig(f"{request_name}_{np.min(np.concatenate(all_losses))}.png")
+    np.save(f"{request_name}_all_losses.npy", all_losses)
